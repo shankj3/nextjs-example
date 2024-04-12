@@ -18,6 +18,23 @@ const rollbarConfig = {
     root: "https://nextjs-example-beta-ten.vercel.app/",
   },
   code_version: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA,
+  payload: {
+    environment: 'production',
+    client: {
+      javascript: {
+        source_map_enabled: true, // false by default
+        
+        // -- Add this into your configuration ---
+        code_version: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA,
+        // ---------------------------------------
+        
+        // Optionally have Rollbar guess which frames the error was 
+        // thrown from when the browser does not provide line 
+        // and column numbers.
+        guess_uncaught_frames: true
+      }
+    }
+  }
 };
 
 export default function RootLayout({
