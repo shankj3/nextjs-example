@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 import RollbarSourcemapPlugin from "rollbar-sourcemap-webpack-plugin"
+import { DeleteSourceMapsPlugin } from 'webpack-delete-sourcemaps-plugin'
+
 
 // this is an environment variable I added to my vercel - it isn't prefixed 
 // with NEXT_PUBLIC, which is good because we only need it for the build process 
@@ -25,6 +27,9 @@ const nextConfig = {
                     publicPath: 'https://nextjs-example-beta-ten.vercel.app/_next/'
                 })
             );
+            config.plugins.push(
+                new DeleteSourceMapsPlugin()
+            )
         }
 
     return config;
