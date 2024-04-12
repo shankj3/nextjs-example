@@ -7,31 +7,28 @@ import RollbarSourcemapPlugin from "rollbar-sourcemap-webpack-plugin"
 const ROLLBAR_ACCESS_TOKEN = process.env.ROLLBAR_SERVER_TOKEN;
 
 const nextConfig = {
-    // this makes next build source maps in prod -- but they are 
-    // still obfuscated from the browser because of the config below 
-    // productionBrowserSourceMaps: false,
-//     webpack: (config, { dev, webpack, buildId }) => {
-//         if (!dev) {
-//             // THIS IS IMPORTANT!! We are telling next right now 
-//             // to build the source maps, but you do not want them exposed 
-//             // to any old random!! this will make it so that it cannot be used 
-//             // to look at your code from any ol' browser, it'll keep operating as 
-//             // you already had it configured
-//             config.devtool = 'hidden-source-map'
-//             // this is already exposed by vercel
-//             const codeVersion = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA;
+    webpack: (config, { dev, webpack, buildId }) => {
+        if (!dev) {
+            // THIS IS IMPORTANT!! We are telling next right now 
+            // to build the source maps, but you do not want them exposed 
+            // to any old random!! this will make it so that it cannot be used 
+            // to look at your code from any ol' browser, it'll keep operating as 
+            // you already had it configured
+            config.devtool = 'hidden-source-map'
+            // this is already exposed by vercel
+            const codeVersion = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA;
 
-//             config.plugins.push(
-//                 new RollbarSourcemapPlugin({
-//                     accessToken: ROLLBAR_ACCESS_TOKEN,
-//                     version: codeVersion,
-//                     publicPath: 'https://nextjs-example-beta-ten.vercel.app/_next/'
-//                 })
-//             );
-//         }
+            config.plugins.push(
+                new RollbarSourcemapPlugin({
+                    accessToken: ROLLBAR_ACCESS_TOKEN,
+                    version: codeVersion,
+                    publicPath: 'https://nextjs-example-beta-ten.vercel.app/_next/'
+                })
+            );
+        }
 
-//     return config;
-//   }
+    return config;
+  }
 }
 
 export default nextConfig;
