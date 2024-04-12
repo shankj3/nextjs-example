@@ -7,9 +7,6 @@ import RollbarSourcemapPlugin from "rollbar-sourcemap-webpack-plugin"
 const ROLLBAR_ACCESS_TOKEN = process.env.ROLLBAR_SERVER_TOKEN;
 
 const nextConfig = {
-    // this makes next build source maps in prod -- but they are 
-    // still obfuscated from the browser because of the config below 
-    productionBrowserSourceMaps: true,
     webpack: (config, { dev, webpack, buildId }) => {
         if (!dev) {
             // THIS IS IMPORTANT!! We are telling next right now 
