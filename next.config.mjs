@@ -17,14 +17,15 @@ const nextConfig = {
     webpack: (config, { dev, webpack, buildId }) => {
         if (!dev) {
             /* eslint-disable-next-line no-param-reassign */
-            config.output.futureEmitAssets = false;
+            // config.output.futureEmitAssets = false;
             config.devtool = 'nosources-source-map'
             const codeVersion = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA;
+            console.log(ROLLBAR_ACCESS_TOKEN, codeVersion)
             config.plugins.push(
                 new RollbarSourcemapPlugin({
-                accessToken: ROLLBAR_ACCESS_TOKEN,
-                version: codeVersion,
-                publicPath: 'https://nextjs-example-beta-ten.vercel.app/_next/'
+                    accessToken: ROLLBAR_ACCESS_TOKEN,
+                    version: codeVersion,
+                    publicPath: 'https://nextjs-example-beta-ten.vercel.app/_next/'
                 })
             );
         }
