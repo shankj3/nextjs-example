@@ -3,6 +3,7 @@ import { ErrorBoundary, Provider, useRollbar } from '@rollbar/react'
 import { useEffect } from 'react'
 
 const rollbarConfig = {
+    // I added this to vercel. It's the client token, it's fine
     accessToken: process.env.NEXT_PUBLIC_ROLLBAR_CLIENT_TOKEN,
     captureUncaught: true,
     captureUnhandledRejections: true,
